@@ -53,22 +53,35 @@ h1, h2, h3, h4, h5, h6 {
     isolation: isolate;
 }
 
+/* 
+11. List 
+*/
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* 12. cursor */
+button {
+    cursor: pointer;
+}
+
 :root {
     --bg-gradient: linear-gradient(to bottom right, #000000 0%, #111827 35%, #000000 100%);
 
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-hover: rgba(255, 255, 255, 0.3);
+    --glass-bg: hsla(0, 0%, 100%, 0.1);
+    --glass-border: hsla(0, 0%, 100%, 0.2);
+    --glass-hover: hsla(0, 0%, 100%, 0.3);
 
-    --text-primary: #ffffff;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
+    --text-primary: hsl(0, 0%, 100%);
+    --text-secondary: hsl(218, 11%, 65%);
+    --text-muted: hsl(220, 9%, 46%);
 
     --feature-bg: hsla(0, 0%, 100%, 0.05);
-    --feature-hover: rgba(255, 255, 255, 0.1);
+    --feature-hover: hsla(0, 0%, 100%, 0.1);
 
     --input-bg: hsla(0, 0%, 0%, 0.4);
-    --ai-output-bg: rgba(0, 0, 0, 0.6);
+    --ai-output-bg: hsla(0, 0%, 0%, 0.6);
 
     --ff-base: "Poppins", sans-serif;
     --ff-heading: "Poppins", sans-serif;
@@ -89,4 +102,53 @@ body {
 
 main {
     min-height: 100vh;
+    padding: 5rem 1rem;
+}
+
+/* utility classes */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-to-main-content {
+    position: absolute;
+    top: .5rem;
+    left: -10000px;
+
+    padding: 0.5rem 1rem;
+    background-color: var(--ai-output-bg);
+    color: var(--text-primary);
+
+    border: 1px solid var(--glass-border);
+    outline: 1px dashed var(--glass-border);
+
+    border-radius: 8px;
+    outline-offset: 4px;
+
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-to-main-content:focus {
+    left: 0;
+}
+
+a:focus {
+    transition: all 0.3s ease;
+    outline: 1px dashed var(--text-primary);
+    outline-offset: 4px;
+}
+
+@media (min-width: 750px) {
+    main {
+        padding: 6rem 4rem;
+    }
 }
