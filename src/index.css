@@ -100,11 +100,6 @@ body {
     font-weight: var(--fw-400);
 }
 
-main {
-    min-height: 100vh;
-    padding: 5rem 1rem;
-}
-
 /* utility classes */
 .sr-only {
     position: absolute;
@@ -145,10 +140,4 @@ a:focus {
     transition: all 0.3s ease;
     outline: 1px dashed var(--text-primary);
     outline-offset: 4px;
-}
-
-@media (min-width: 750px) {
-    main {
-        padding: 6rem 4rem;
-    }
 }

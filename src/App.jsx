@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./components/layout/Layout";
+import Landing from "./pages/Landing";
 
 const App = () => {
 
@@ -15,7 +16,7 @@ const App = () => {
         },
         {
           path: "/landing",
-          element: <h1>Landing Page</h1>
+          element: <Landing />
         },
         {
           path: "/profile",

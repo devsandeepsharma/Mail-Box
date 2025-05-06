@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./header.css";
 import Button from "../ui/Button";
@@ -14,7 +14,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <Link className="skip-to-main-content" to="#main">Skip to main content</Link>
+            <a className="skip-to-main-content" href="#main">Skip to main content</a>
             <Link className="header__logo" to="/landing">Mail Box</Link>
             <nav className="header__nav" aria-label="primary navigation">
                 <Button 
@@ -30,16 +30,16 @@ const Header = () => {
                 </Button>
                 <ul id="navlist" className="nav__list">
                     <li className="nav__item">
-                        <NavLink to="#features" onClick={toggle}>Features</NavLink>
+                        <a href="#features" onClick={toggle}>Features</a>
                     </li>
                     <li className="nav__item">
-                        <NavLink to="#tryaI" onClick={toggle}>Try AI</NavLink>
+                        <a href="#tryai" onClick={toggle}>Try AI</a>
                     </li>
                     <li className="nav__item">
-                        <NavLink to="#testimonials" onClick={toggle}>Testimonials</NavLink>
+                        <a href="#testimonials" onClick={toggle}>Testimonials</a>
                     </li>
                     <li className="nav__item">
-                        <NavLink to="/login" onClick={toggle}>Login</NavLink>
+                        <Link to="/login" onClick={toggle}>Login</Link>
                     </li>
                     <li className="nav__item">
                         <Button type="link" to="/signup" style={{width: "100%"}} onClick={toggle}>Sign Up</Button>
