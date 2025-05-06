@@ -29,6 +29,7 @@
 .features {
     min-height: 100vh;
     padding: 1rem;
+    padding-top: 5rem;
 
     display: flex;
     flex-direction: column;
@@ -44,6 +45,84 @@
 
 .features__item {
     flex: 1 1 250px;
+}
+
+.tryai,
+.testimonials {
+    min-height: 100vh;
+    padding: 1rem;
+    padding-top: 5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tryai__title,
+.testimonials__title {
+    text-align: center;
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-700);
+    font-size: 30px;
+}
+  
+.tryai__box {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--glass-bg);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+  
+.tryai__form,
+.tryai__output {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+.tryai__input,
+.tryai__response {
+    resize: none;
+    min-height: 100px;
+
+    padding: 1rem;
+    color: var(--text-primary);
+    background: var(--input-bg);
+    
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+
+    font-family: var(--ff-accent);
+}
+
+.tryai__input:focus {
+    outline: 0;
+}
+
+.testimonials__list {
+    columns: 1;
+    column-gap: 1rem;
+}
+
+.list__item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 500px) {
+    .testimonials__list {
+        columns: 2;
+    }
 }
 
 @media (min-width: 750px) {
@@ -73,5 +152,31 @@
     
     .features__item {
         flex: 1 1 300px;
+    }
+
+    .tryai,
+    .testimonials  {
+        padding: 3rem 4rem 0;
+        gap: 2rem;
+    }
+    
+    .tryai__box {
+        max-width: 900px;
+        padding: 2rem;
+
+        flex-direction: row;
+        gap: 2rem;
+    }
+      
+    .tryai__form,
+    .tryai__output {
+        width: 50%;
+    }
+}
+
+@media (min-width: 950px) {
+    .testimonials__list {
+        columns: 3;
+        column-gap: 1.5rem;
     }
 }

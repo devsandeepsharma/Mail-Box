@@ -68,6 +68,7 @@ button {
 
 :root {
     --bg-gradient: linear-gradient(to bottom right, #000000 0%, #111827 35%, #000000 100%);
+    --bg-dark: hsl(221, 39%, 11%);
 
     --glass-bg: hsla(0, 0%, 100%, 0.1);
     --glass-border: hsla(0, 0%, 100%, 0.2);
@@ -85,11 +86,16 @@ button {
 
     --ff-base: "Poppins", sans-serif;
     --ff-heading: "Poppins", sans-serif;
+    --ff-accent: monospace;
 
     --fw-300: 300;
     --fw-400: 400;
     --fw-500: 500;
     --fw-700: 700;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {

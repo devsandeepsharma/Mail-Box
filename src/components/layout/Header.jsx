@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "./header.css";
 import Button from "../ui/Button";
 
 const Header = () => {
 
+    const location = useLocation();
     const [toggleNav, setToggleNav] = useState(false);
 
     const toggle = () => {
@@ -29,20 +30,26 @@ const Header = () => {
                     <div className="line three"></div>
                 </Button>
                 <ul id="navlist" className="nav__list">
-                    <li className="nav__item">
-                        <a href="#features" onClick={toggle}>Features</a>
-                    </li>
-                    <li className="nav__item">
-                        <a href="#tryai" onClick={toggle}>Try AI</a>
-                    </li>
-                    <li className="nav__item">
-                        <a href="#testimonials" onClick={toggle}>Testimonials</a>
-                    </li>
+                    {
+                        location.pathname === "/landing" && (
+                            <>
+                                <li className="nav__item">
+                                    <a href="#features" onClick={toggle}>Features</a>
+                                </li>
+                                <li className="nav__item">
+                                    <a href="#tryai" onClick={toggle}>Try AI</a>
+                                </li>
+                                <li className="nav__item">
+                                    <a href="#testimonials" onClick={toggle}>Testimonials</a>
+                                </li>
+                            </>
+                        )
+                    }
                     <li className="nav__item">
                         <Link to="/login" onClick={toggle}>Login</Link>
                     </li>
-                    <li className="nav__item">
-                        <Button type="link" to="/signup" style={{width: "100%"}} onClick={toggle}>Sign Up</Button>
+                    <li className="nav__item link-btn">
+                        <Button type="link" to="/signup" onClick={toggle}>Sign Up</Button>
                     </li>
                 </ul>
             </nav>
