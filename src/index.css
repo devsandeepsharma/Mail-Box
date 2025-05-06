@@ -1,0 +1,92 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+/* 2. Remove default margin */
+* {
+    margin: 0;
+}
+  
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+      interpolate-size: allow-keywords;
+    }
+}
+  
+body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+}
+  
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+/*
+10. Create a root stacking context
+*/
+#root, #__next {
+    isolation: isolate;
+}
+
+:root {
+    --bg-gradient: linear-gradient(to bottom right, #000000 0%, #111827 35%, #000000 100%);
+
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-hover: rgba(255, 255, 255, 0.3);
+
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+
+    --feature-bg: hsla(0, 0%, 100%, 0.05);
+    --feature-hover: rgba(255, 255, 255, 0.1);
+
+    --input-bg: hsla(0, 0%, 0%, 0.4);
+    --ai-output-bg: rgba(0, 0, 0, 0.6);
+
+    --ff-base: "Poppins", sans-serif;
+    --ff-heading: "Poppins", sans-serif;
+
+    --fw-300: 300;
+    --fw-400: 400;
+    --fw-500: 500;
+    --fw-700: 700;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+
+    font-family: var(--ff-base);
+    font-weight: var(--fw-400);
+}
+
+main {
+    min-height: 100vh;
+}
