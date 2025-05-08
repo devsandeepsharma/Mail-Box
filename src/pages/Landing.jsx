@@ -3,9 +3,9 @@ import { Formik, Form, Field } from "formik";
 
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
+import TestimonialCard from "../components/ui/TestimonialCard";
 
 import "./landing.css";
-import TestimonialCard from "../components/ui/TestimonialCard";
 
 const Landing = () => {
 

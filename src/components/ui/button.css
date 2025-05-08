@@ -16,24 +16,26 @@
 }
 
 .btn.primary {
-    background-color: var(--glass-border);
+    background-color: var(--clr-primary);
     color: var(--text-primary) !important;
 
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--clr-primary);
 }
 
 .btn.primary:hover {
-    background-color: var(--glass-hover);
+    background-color: var(--clr-primary-hover);
+    border-color: var(--clr-primary-hover);
 }
 
-.btn[type="link"] {
+.btn.link {
+    padding: 0 6px;
     background-color: transparent;
     color: var(--text-primary);
     border: none;
     text-decoration: underline;
 }
 
-.btn[type="link"]:hover {
+.btn.link:hover {
     color: var(--text-secondary);
 }
 
