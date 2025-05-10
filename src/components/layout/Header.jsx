@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./header.css";
 import Button from "../ui/Button";
-import { AuthService } from "../../services/Authentication";
-import { authActions } from "../../store/authSlice";
 
 const Header = () => {
 
     const { authenticate } = useSelector(state => state.auth);
-    const dispatch = useDispatch();
-
     const location = useLocation();
     const [toggleNav, setToggleNav] = useState(false);
 
@@ -19,19 +15,10 @@ const Header = () => {
         setToggleNav(prev => !prev);
     }
 
-    const logoutUser = async () => {
-        try {
-            await AuthService.logout();
-            dispatch(authActions.logout());
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return (
         <header className="header">
             <a className="skip-to-main-content" href="#main">Skip to main content</a>
-            <Link className="header__logo" to="/landing">Mail Box</Link>
+            <Link className="header__logo" to={authenticate ? "/": "/landing"} >Mail Box</Link>
             <nav className="header__nav" aria-label="primary navigation">
                 <Button 
                     className="nav__button" 
@@ -47,9 +34,17 @@ const Header = () => {
                 <ul id="navlist" className="nav__list">
                     {
                         authenticate ? (
-                            <li className="nav__item link-btn">
-                                <Button onClick={logoutUser}>Logout</Button>
-                            </li>
+                            <>
+                                <li className="nav__item">
+                                    <Link to="/sent" onClick={toggle}>Sent Mail</Link>
+                                </li>
+                                <li className="nav__item">
+                                    <Link to="/profile" onClick={toggle}>My Profile</Link>
+                                </li>
+                                <li className="nav__item link-btn">
+                                    <Button isLink>Compose Email</Button>
+                                </li>
+                            </>
                         ) : (
                             <>
                                 {
