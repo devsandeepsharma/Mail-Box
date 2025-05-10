@@ -11,6 +11,8 @@ import "./form.css";
 
 const Signup = () => {
 
+    const defaultImg = "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D";
+
     const navigate = useNavigate();
 
     const [toggle, setToggle] = useState(false);
@@ -24,7 +26,7 @@ const Signup = () => {
         setError("");
         try {
             await AuthService.signup(values.email, values.password);
-            await AuthService.updateUserProfile(values.username, null);
+            await AuthService.updateUserProfile(values.username, defaultImg);
             navigate("/login");
         } catch (error) {
             const msg = getFirebaseAuthErrorMessage(error);

@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import Profile from "./pages/Profile";
 import AuthLayout from "./components/layout/AuthLayout";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import PublicRoute from "./components/layout/PublicRoute";
@@ -22,7 +23,7 @@ const App = () => {
         },
         {
           path: "/profile",
-          element: <ProtectedRoute><h1>Profile Page</h1></ProtectedRoute>
+          element: <ProtectedRoute><Profile /></ProtectedRoute>
         },
         {
           path: "/sent",

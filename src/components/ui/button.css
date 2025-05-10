@@ -1,5 +1,5 @@
 .btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -25,6 +25,13 @@
 .btn.primary:hover {
     background-color: var(--clr-primary-hover);
     border-color: var(--clr-primary-hover);
+}
+
+.btn.outline {
+    color: var(--text-primary);
+    background-color: transparent;
+    padding-bottom: 5px !important;
+    border: 1px solid var(--glass-border);
 }
 
 .btn.ghost {
@@ -54,4 +61,14 @@
 .btn:focus {
     outline: 1px dashed var(--text-primary);
     outline-offset: 4px;
+}
+
+.btn[disabled] {
+    background-color: var(--glass-hover);
+    border-color: var(--glass-border);
+}
+
+.btn[disabled]:hover {
+    background-color: var(--glass-hover);
+    border-color: var(--glass-border);
 }
