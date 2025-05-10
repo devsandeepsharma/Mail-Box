@@ -49,7 +49,7 @@ const Header = () => {
                         <Link to="/login" onClick={toggle}>Login</Link>
                     </li>
                     <li className="nav__item link-btn">
-                        <Button type="link" to="/signup" onClick={toggle}>Sign Up</Button>
+                        <Button isLink={true} to="/signup" onClick={toggle}>Sign Up</Button>
                     </li>
                 </ul>
             </nav>

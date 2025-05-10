@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 import "./button.css";
 
-const Button = ({ varient="primary", type="button", children, className, ...props }) => {
+const Button = ({ varient="primary", isLink=false, children, className, ...props }) => {
 
-    const Element = type === "button" ? "button" : Link;
+    const Element = isLink ? Link : "button";
 
     return (
         <Element className={`btn ${varient} ${className}`} {...props}>

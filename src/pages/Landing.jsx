@@ -107,7 +107,7 @@ const Landing = () => {
                     Mail Box is your AI-powered email companion that turns your 
                     casual words into professional conversations — in a click.
                 </p>
-                <Button type="link" to="/signup" className="hero__cta">Try it Now</Button>
+                <Button isLink={true} to="/signup" className="hero__cta">Try it Now</Button>
             </section>
             <section id="features" className="features">
                 <ul className="features__list">

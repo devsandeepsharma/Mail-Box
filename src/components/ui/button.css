@@ -27,6 +27,18 @@
     border-color: var(--clr-primary-hover);
 }
 
+.btn.ghost {
+    width: fit-content;
+    padding:  0 4px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 0 !important;
+}
+
+.btn.ghost:hover {
+    color: var(--text-secondary);
+}
+
 .btn.link {
     padding: 0 6px;
     background-color: transparent;

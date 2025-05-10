@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const App = () => {
 
@@ -31,6 +32,10 @@ const App = () => {
         {
           path: "/login",
           element: <Login />
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />
         },
         {
           path: "/signup",
