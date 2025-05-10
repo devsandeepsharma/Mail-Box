@@ -1,17 +1,37 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
 import Button from "../components/ui/Button";
+import { AuthService } from "../services/Authentication";
+import { getFirebaseAuthErrorMessage } from "../utils/firebaseErrorUtils";
 
 import "./form.css";
 
 const Signup = () => {
 
+    const navigate = useNavigate();
+
     const [toggle, setToggle] = useState(false);
+    const [error, setError] = useState();
     
     const handleToggle = () => {
         setToggle(prev => !prev);
+    }
+
+    const createUser = async (values, actions) => {
+        setError("");
+        try {
+            await AuthService.signup(values.email, values.password);
+            await AuthService.updateUserProfile(values.username, null);
+            navigate("/login");
+        } catch (error) {
+            const msg = getFirebaseAuthErrorMessage(error);
+            setError(msg);
+        } finally {
+            actions.setSubmitting(false);;
+        }
     }
 
     return (
@@ -41,45 +61,69 @@ const Signup = () => {
                     })}
 
                     onSubmit={(values, actions) => {
-                        console.log(values)
-                        actions.setSubmitting(false);
+                        createUser(values, actions);
                     }}
                 >
-                    <Form className="form">
-                        <div className="form__input-box">
-                            <label className="input-box__label">Username</label>
-                            <Field className="input-box__input" name="username" type="text" placeholder="username" />
-                            <p className="input-box__error"><ErrorMessage name="username" /></p>
-                        </div>
-                        <div className="form__input-box">
-                            <label className="input-box__label">Email</label>
-                            <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
-                            <p className="input-box__error"><ErrorMessage name="email" /></p>
-                        </div>
-                        <div className="form__input-box">
-                            <label className="input-box__label">Password</label>
-                            <div className="form__input-box-inner">
-                                <Field 
-                                    className="input-box__input" 
-                                    name="password" 
-                                    type={toggle ? "text": "password"} 
-                                    placeholder="••••••••"
-                                />
-                                <Button 
-                                    className="toggle-btn" 
-                                    varient="ghost" 
-                                    type="button" 
-                                    onClick={handleToggle}
-                                >
-                                    {toggle ? "Hide": "Show"}
-                                </Button>
+                    {({ isSubmitting }) => (
+                        <Form className="form">
+                            <div className="form__input-box">
+                                <label className="input-box__label">Username</label>
+                                <Field className="input-box__input" name="username" type="text" placeholder="username" />
+                                <p className="input-box__error">
+                                    <ErrorMessage name="username" />
+                                    {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                </p>
                             </div>
-                            <p className="input-box__error"><ErrorMessage name="password" /></p>
-                        </div>
-                        <Button className="form__btn">Signup</Button>
-                    </Form>
+                            <div className="form__input-box">
+                                <label className="input-box__label">Email</label>
+                                <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
+                                <p className="input-box__error">
+                                    <ErrorMessage name="email" />
+                                    {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                    {error && error.toLowerCase().includes('email') && (
+                                        <span>{error}</span>
+                                    )}
+                                </p>
+                            </div>
+                            <div className="form__input-box">
+                                <label className="input-box__label">Password</label>
+                                <div className="form__input-box-inner">
+                                    <Field 
+                                        className="input-box__input" 
+                                        name="password" 
+                                        type={toggle ? "text": "password"} 
+                                        placeholder="••••••••"
+                                    />
+                                    <Button 
+                                        className="toggle-btn" 
+                                        varient="ghost" 
+                                        type="button" 
+                                        onClick={handleToggle}
+                                    >
+                                        {toggle ? "Hide": "Show"}
+                                    </Button>
+                                </div>
+                                <p className="input-box__error">
+                                    <ErrorMessage name="password" />
+                                    {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                    {error && error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                </p>
+                            </div>
+                            <Button type="submit" className="form__btn" disabled={isSubmitting}>
+                                {isSubmitting ? "Signing in..": "Signup"}
+                            </Button>
+                        </Form>
+                    )}
                 </Formik>
-                <p className="form__link">Already have an account? <Button varient="link" to="/login" isLink={true}>Login</Button></p>
+                <p className="form__link">Already have an account? <Button varient="link" to="/login" isLink>Login</Button></p>
             </div>
         </div>
     )

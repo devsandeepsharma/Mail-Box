@@ -1,17 +1,36 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
 import Button from "../components/ui/Button";
+import { AuthService } from "../services/Authentication";
+import { getFirebaseAuthErrorMessage } from "../utils/firebaseErrorUtils";
 
 import "./form.css";
 
 const Login = () => {
 
-    const [toggle, setToggle] = useState(false);
+    const navigate = useNavigate();
 
+    const [toggle, setToggle] = useState(false);
+    const [error, setError] = useState();
+    
     const handleToggle = () => {
         setToggle(prev => !prev);
+    }
+
+    const loginUser = async (values, actions) => {
+        setError("");
+        try {
+            await AuthService.login(values.email, values.password);
+            navigate("/");
+        } catch (error) {
+            const msg = getFirebaseAuthErrorMessage(error);
+            setError(msg);
+        } finally {
+            actions.setSubmitting(false);;
+        }
     }
 
     return (
@@ -36,41 +55,60 @@ const Login = () => {
                     })}
 
                     onSubmit={(values, actions) => {
-                        console.log(values)
-                        actions.setSubmitting(false);
+                        loginUser(values, actions);
                     }}
                 >
-                    <Form className="form">
-                        <div className="form__input-box">
-                            <label className="input-box__label">Email</label>
-                            <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
-                            <p className="input-box__error"><ErrorMessage name="email" /></p>
-                        </div>
-                        <div className="form__input-box">
-                            <label className="input-box__label">Password</label>
-                            <div className="form__input-box-inner">
-                                <Field 
-                                    className="input-box__input" 
-                                    name="password" 
-                                    type={toggle ? "text": "password"} 
-                                    placeholder="••••••••"
-                                />
-                                <Button 
-                                    className="toggle-btn" 
-                                    varient="ghost" 
-                                    type="button" 
-                                    onClick={handleToggle}
-                                >
-                                    {toggle ? "Hide": "Show"}
-                                </Button>
+                    {({ isSubmitting }) => (
+                        <Form className="form">
+                            <div className="form__input-box">
+                                <label className="input-box__label">Email</label>
+                                <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
+                                <p className="input-box__error">
+                                    <ErrorMessage name="email" />
+                                    {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                    {error && error.toLowerCase().includes('email') && (
+                                        <span>{error}</span>
+                                    )}
+                                </p>
                             </div>
-                            <p className="input-box__error"><ErrorMessage name="password" /></p>
-                        </div>
-                        <Button className="form__link forgot-pass" varient="link" to="/forgot-password" isLink={true}>Forgot Password?</Button>
-                        <Button className="form__btn" type="submit">Login</Button>
-                    </Form>
+                            <div className="form__input-box">
+                                <label className="input-box__label">Password</label>
+                                <div className="form__input-box-inner">
+                                    <Field 
+                                        className="input-box__input" 
+                                        name="password" 
+                                        type={toggle ? "text": "password"} 
+                                        placeholder="••••••••"
+                                    />
+                                    <Button 
+                                        className="toggle-btn" 
+                                        varient="ghost" 
+                                        type="button" 
+                                        onClick={handleToggle}
+                                    >
+                                        {toggle ? "Hide": "Show"}
+                                    </Button>
+                                </div>
+                                <p className="input-box__error">
+                                    <ErrorMessage name="password" />
+                                    {error && !error.toLowerCase().includes('email') && !error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                    {error && error.toLowerCase().includes('password') && (
+                                        <span>{error}</span>
+                                    )}
+                                </p>
+                            </div>
+                            <Button className="form__link forgot-pass" varient="link" to="/forgot-password" isLink>Forgot Password?</Button>
+                            <Button className="form__btn" type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? "Loging in..": "Login"}
+                            </Button>
+                        </Form>
+                    )}
                 </Formik>
-                <p className="form__link">Create new acccount? <Button varient="link" to="/signup" isLink={true}>Signup</Button></p>
+                <p className="form__link">Create new acccount? <Button varient="link" to="/signup" isLink>Signup</Button></p>
             </div>
         </div>
     )

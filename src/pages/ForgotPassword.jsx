@@ -1,11 +1,31 @@
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
 import Button from "../components/ui/Button";
+import { AuthService } from "../services/Authentication";
+import { getFirebaseAuthErrorMessage } from "../utils/firebaseErrorUtils";
 
 import "./form.css";
 
 const ForgotPassword = () => {
+
+    const [error, setError] = useState();
+    const [success, setSuccess] = useState();
+
+    const sendResetLink = async (values, actions) => {
+        setError("");
+        try {
+            await AuthService.forgotPassword(values.email);
+            setSuccess("Check your inbox for the reset link!");
+        } catch (error) {
+            const msg = getFirebaseAuthErrorMessage(error);
+            setError(msg);
+        } finally {
+            actions.setSubmitting(false);;
+        }
+    }
+
     return (
         <div className="form-container">
             <div className="form__card">
@@ -23,20 +43,27 @@ const ForgotPassword = () => {
                     })}
 
                     onSubmit={(values, actions) => {
-                        console.log(values)
-                        actions.setSubmitting(false);
+                        sendResetLink(values, actions);
                     }}
                 >
-                    <Form className="form">
-                        <div className="form__input-box">
-                            <label className="input-box__label">Email</label>
-                            <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
-                            <p className="input-box__error"><ErrorMessage name="email" /></p>
-                        </div>
-                        <Button className="form__btn">Sent Reset Link</Button>
-                    </Form>
+                    {({ isSubmitting }) => (
+                        <Form className="form">
+                            <div className="form__input-box">
+                                <label className="input-box__label">Email</label>
+                                <Field className="input-box__input" name="email" type="email" placeholder="user@gmail.com" />
+                                <p className="input-box__error">
+                                    <ErrorMessage name="email" />
+                                    {error&& <span>{error}</span>}
+                                </p>
+                                {success && <p className="form__success">{success}</p>}
+                            </div>
+                            <Button type="submit" className="form__btn" disabled={isSubmitting}>
+                                {isSubmitting ? "Sending...": "Sent Reset Link"}
+                            </Button>
+                        </Form>
+                    )}
                 </Formik>
-                <p className="form__link">Try login again? <Button varient="link" to="/login" isLink={true}>Login</Button></p>
+                <p className="form__link">Try login again? <Button varient="link" to="/login" isLink>Login</Button></p>
             </div>
         </div>
     )
