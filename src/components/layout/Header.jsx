@@ -1,16 +1,31 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./header.css";
 import Button from "../ui/Button";
+import { AuthService } from "../../services/Authentication";
+import { authActions } from "../../store/authSlice";
 
 const Header = () => {
+
+    const { authenticate } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
     const location = useLocation();
     const [toggleNav, setToggleNav] = useState(false);
 
     const toggle = () => {
         setToggleNav(prev => !prev);
+    }
+
+    const logoutUser = async () => {
+        try {
+            await AuthService.logout();
+            dispatch(authActions.logout());
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -31,26 +46,36 @@ const Header = () => {
                 </Button>
                 <ul id="navlist" className="nav__list">
                     {
-                        location.pathname === "/landing" && (
+                        authenticate ? (
+                            <li className="nav__item link-btn">
+                                <Button onClick={logoutUser}>Logout</Button>
+                            </li>
+                        ) : (
                             <>
+                                {
+                                    location.pathname === "/landing" && (
+                                        <>
+                                            <li className="nav__item">
+                                                <a href="#features" onClick={toggle}>Features</a>
+                                            </li>
+                                            <li className="nav__item">
+                                                <a href="#tryai" onClick={toggle}>Try AI</a>
+                                            </li>
+                                            <li className="nav__item">
+                                                <a href="#testimonials" onClick={toggle}>Testimonials</a>
+                                            </li>
+                                        </>
+                                    )
+                                }
                                 <li className="nav__item">
-                                    <a href="#features" onClick={toggle}>Features</a>
+                                    <Link to="/login" onClick={toggle}>Login</Link>
                                 </li>
-                                <li className="nav__item">
-                                    <a href="#tryai" onClick={toggle}>Try AI</a>
-                                </li>
-                                <li className="nav__item">
-                                    <a href="#testimonials" onClick={toggle}>Testimonials</a>
+                                <li className="nav__item link-btn">
+                                    <Button to="/signup" isLink onClick={toggle}>Sign Up</Button>
                                 </li>
                             </>
                         )
                     }
-                    <li className="nav__item">
-                        <Link to="/login" onClick={toggle}>Login</Link>
-                    </li>
-                    <li className="nav__item link-btn">
-                        <Button isLink={true} to="/signup" onClick={toggle}>Sign Up</Button>
-                    </li>
                 </ul>
             </nav>
         </header>
