@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import AuthLayout from "./components/layout/AuthLayout";
 
 const App = () => {
 
@@ -45,7 +46,11 @@ const App = () => {
     }
   ])
   
-  return <RouterProvider router={router} />
+  return (
+    <AuthLayout>
+      <RouterProvider router={router} />
+    </AuthLayout>
+  )
 }
 
 export default App;
