@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
 import Button from "../components/ui/Button";
 import { AuthService } from "../services/Authentication";
 import { getFirebaseAuthErrorMessage } from "../utils/firebaseErrorUtils";
+import { authActions } from "../store/authSlice";
 
 import "./form.css";
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [toggle, setToggle] = useState(false);
     const [error, setError] = useState();
@@ -23,7 +26,16 @@ const Login = () => {
     const loginUser = async (values, actions) => {
         setError("");
         try {
-            await AuthService.login(values.email, values.password);
+            const user = await AuthService.login(values.email, values.password);
+            
+            const userData = {
+                uid: user.user.uid,            
+                username: user.user.displayName, 
+                email: user.user.email,       
+                photoUrl: user.user.photoURL
+            }
+
+            dispatch(authActions.login(userData));
             navigate("/");
         } catch (error) {
             const msg = getFirebaseAuthErrorMessage(error);
