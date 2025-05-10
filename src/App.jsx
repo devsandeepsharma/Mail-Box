@@ -6,6 +6,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import AuthLayout from "./components/layout/AuthLayout";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import PublicRoute from "./components/layout/PublicRoute";
 
 const App = () => {
 
@@ -16,31 +18,31 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <h1>All Mails Page</h1>
-        },
-        {
-          path: "/landing",
-          element: <Landing />
+          element: <ProtectedRoute><h1>All Mails Page</h1></ProtectedRoute>
         },
         {
           path: "/profile",
-          element: <h1>Profile Page</h1>
+          element: <ProtectedRoute><h1>Profile Page</h1></ProtectedRoute>
         },
         {
           path: "/sent",
-          element: <h1>Sent Mails Page</h1>
+          element: <ProtectedRoute><h1>Sent Mails Page</h1></ProtectedRoute>
+        },
+        {
+          path: "/landing",
+          element: <PublicRoute><Landing /></PublicRoute>
         },
         {
           path: "/login",
-          element: <Login />
+          element: <PublicRoute><Login /></PublicRoute>
         },
         {
           path: "/forgot-password",
-          element: <ForgotPassword />
+          element: <PublicRoute><ForgotPassword /></PublicRoute>
         },
         {
           path: "/signup",
-          element: <Signup />
+          element: <PublicRoute><Signup /></PublicRoute>
         },
       ]
     }
