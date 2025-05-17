@@ -1,6 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./components/layout/Layout";
+import Signup from "./pages/Signup";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const App = () => {
 
@@ -31,19 +35,19 @@ const App = () => {
         },
         {
           path: "/landing",
-          element: <h1>Landing Page</h1>
+          element: <Landing />
         },
         {
           path: "/login",
-          element: <h1>Login Page</h1>
+          element: <Login />
         },
         {
           path: "/signup",
-          element: <h1>Signup Page</h1>
+          element: <Signup />
         },
         {
           path: "/forgot-password",
-          element: <h1>Forgot Password Page</h1>
+          element: <ForgotPassword />
         },
       ]
     }
