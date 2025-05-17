@@ -113,6 +113,25 @@ a:focus {
     --fw-700: 700;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--glass-hover);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--glass-border);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -126,8 +145,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--ff-heading);
-  font-weight: var(--fw-700);
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-700);
 }
 
 /* utility classes */
