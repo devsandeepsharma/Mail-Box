@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import AuthLayout from "./components/layout/AuthLayout";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import PublicRoute from "./components/layout/PublicRoute";
 
 const App = () => {
 
@@ -17,39 +19,75 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home />
+          element: (
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          )
         },
         {
           path: "/profile",
-          element: <h1>Profile Page</h1>
+          element: (
+            <ProtectedRoute>
+              <h1>Profile Page</h1>
+            </ProtectedRoute>
+          )
         },
         {
           path: "/compose",
-          element: <h1>Compose Email Page</h1>
+          element: (
+            <ProtectedRoute>
+              <h1>Compose Email Page</h1>
+            </ProtectedRoute>
+          )
         },
         {
           path: "/sent",
-          element: <h1>Sent Emails Page</h1>
+          element: (
+            <ProtectedRoute>
+              <h1>Sent Emails Page</h1>
+            </ProtectedRoute>
+          )
         },
         {
           path: "/:id",
-          element: <h1>View Emails Page</h1>
+          element: (
+            <ProtectedRoute>
+              <h1>View Emails Page</h1>
+            </ProtectedRoute>
+          )
         },
         {
           path: "/landing",
-          element: <Landing />
+          element: (
+            <PublicRoute>
+              <Landing />
+            </PublicRoute>
+          )
         },
         {
           path: "/login",
-          element: <Login />
+          element: (
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          )
         },
         {
           path: "/signup",
-          element: <Signup />
+          element: (
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          )
         },
         {
           path: "/forgot-password",
-          element: <ForgotPassword />
+          element: (
+            <PublicRoute>
+              <ForgotPassword />
+            </PublicRoute>
+          )
         },
       ]
     }
