@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import ComposeEmail from "./pages/ComposeEmail";
 import AuthLayout from "./components/layout/AuthLayout";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import PublicRoute from "./components/layout/PublicRoute";
@@ -38,7 +39,7 @@ const App = () => {
           path: "/compose",
           element: (
             <ProtectedRoute>
-              <h1>Compose Email Page</h1>
+              <ComposeEmail />
             </ProtectedRoute>
           )
         },

@@ -1,0 +1,41 @@
+.email-editor-wrapper {
+    width: 100%;
+    border-radius: 6px;
+    color: var(--text-primary);
+    background-color: var(--input-bg);
+}
+
+.email-editor-toolbar {
+    padding: .75rem;
+    padding-bottom: 0;
+    background-color: transparent;
+    border: 0;
+    color: var(--text-inverted) !important;
+}
+
+.email-editor-body {
+    padding: .75rem;
+    padding-top: 0;
+    line-height: 1.4; 
+    min-height: 200px;
+}
+
+.email-editor-body:hover {
+    background-color: var(--input-hover);
+}
+
+.email-editor-body p {
+    margin-bottom: 0.3em;
+}
+
+.email-editor-body * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 750px) {
+  .email-editor-body {
+    min-height: 150px;
+  }
+}

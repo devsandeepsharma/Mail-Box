@@ -1,0 +1,85 @@
+.compose-email__card {
+    width: 100%;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background-color: var(--glass-bg);
+
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-glass);
+}
+
+.compose-email__title {
+    font-size: 28px;
+    margin-top: -.5rem;
+    margin-bottom: 1rem;
+}
+
+.compose-email__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.compose-email__form .form__input-box {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.compose-email__form .input-box__label {
+    font-size: 14px;
+}
+
+.compose-email__form .input-box__input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    background-color: var(--input-bg);
+    border: none;
+    outline: 0;
+}
+
+.compose-email__form .input-box__input:hover, 
+.compose-email__form .input-box__input:focus {
+    background-color: var(--input-focus);
+}
+
+.compose-email__form .input-box__error {
+    font-size: 14px;
+    color: var(--clr-error);
+}
+
+.compose-email__form .form__success {
+    font-size: 14px;
+    color: var(--clr-success);
+}
+
+@media (min-width: 750px) {
+    .compose-email__card {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+
+    .compose-email__title {
+        font-size: 30px;
+    }
+
+    .form__inner {
+        flex-direction: row;
+    }
+
+    .compose-email__form .form__input-box {
+        flex: 1;
+    }
+}
