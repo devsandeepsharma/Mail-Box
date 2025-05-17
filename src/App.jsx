@@ -6,6 +6,7 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import AuthLayout from "./components/layout/AuthLayout";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import PublicRoute from "./components/layout/PublicRoute";
@@ -29,7 +30,7 @@ const App = () => {
           path: "/profile",
           element: (
             <ProtectedRoute>
-              <h1>Profile Page</h1>
+              <Profile />
             </ProtectedRoute>
           )
         },
