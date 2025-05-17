@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./button.css";
 
-const Button = ({ variant="primary", isLink=false, children, className, ...props }) => {
+const Button = ({ variant="primary", isLink=false, children, className="", ...props }) => {
 
     const Element = isLink ? Link : "button";
 

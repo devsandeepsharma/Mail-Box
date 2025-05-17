@@ -1,0 +1,144 @@
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 50;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+    background-color: var(--glass-bg);
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.header__logo {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: var(--fw-700);
+}
+
+.nav__button {
+    position: relative;
+    width: 33px;
+    height: 27px;
+    z-index: 300;
+
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between !important;
+    
+    padding: .35rem !important;
+    border-radius: 4px !important;
+}
+
+.nav__button .line {
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav__button[aria-expanded=true] .line.one {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.nav__button[aria-expanded=true] .line.two {
+    opacity: 0;
+}
+
+.nav__button[aria-expanded=true] .line.three {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav__button[aria-expanded=true] ~ .nav__list {
+    visibility: unset;
+    right: 0;
+}
+
+.nav__list {
+    visibility: hidden;
+    position: fixed;
+    width: 75%;
+    height: 100vh;
+    right: -100%;
+    top: 0;
+    z-index: 200;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    padding: 2rem;
+    padding-top: 5rem;
+    background-color: var(--bg-dark);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-left: 1px solid var(--glass-border);
+    transition: .6s ease-in-out;
+}
+
+.nav__list a {
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.nav__list a:hover {
+    color: var(--text-secondary);
+}
+
+.nav__list .link-btn {
+    margin-top: -.5rem;
+}
+
+.nav__list .link-btn a {
+    font-size: 16px;
+    width: 100%;
+}
+
+@media (min-width: 750px) {
+    .header {
+        padding: 1rem 4rem;
+    }
+
+    .header__logo {
+        font-size: 24px;
+    }
+
+    .nav__button {
+        display: none !important;
+    }
+    
+    .nav__list {
+        visibility: unset;
+        position: unset;
+        width: unset;
+        height: unset;
+        z-index: unset;
+        padding: unset;
+        backdrop-filter: unset;
+        -webkit-backdrop-filter: unset;
+        border-left: unset;
+        background-color: unset;
+    
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .nav__list .link-btn {
+        margin-top: 0;
+        margin-left: -.5rem;
+    }
+
+    .nav__list a {
+        font-size: 16px;
+    }
+}
