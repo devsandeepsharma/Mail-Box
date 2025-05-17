@@ -7,6 +7,8 @@ import "./composeEmail.css";
 import EmailEditor from "../components/ui/EmailEditor";
 import Button from "../components/ui/Button";
 
+import { EmailService } from "../services/Email";
+
 const ComposeEmail = () => {
 
     const [emailBody, setEmailBody] = useState();
@@ -26,14 +28,27 @@ const ComposeEmail = () => {
 
     const sendEmail = async (values, actions) => {
         setError("");
+        setSuccess("");
         if (!emailBody || emailBody.trim() === "" || emailBody === "<p></p>\n") {
             setError("Email body cannot be empty.");
             actions.setSubmitting(false);
             return;
         }
-        console.log(values);
-        console.log(emailBody);
-        actions.setSubmitting(false);
+
+        try {
+            const emailData = await EmailService.sendEmail(
+                values.receiverEmail,
+                values.title,
+                emailBody
+            );
+            setSuccess("Mail Sent Successfully!");
+            actions.resetForm();
+            setEmailBody("");
+        } catch (error) {
+            setError("Failed to send email. Please try again.");
+        } finally {
+            actions.setSubmitting(false);
+        }
     }
 
     return (
