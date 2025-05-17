@@ -2,7 +2,8 @@ import {
     getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
-    updateProfile 
+    updateProfile,
+    sendPasswordResetEmail
 } from "firebase/auth";
 
 import { app } from "./config";
@@ -22,6 +23,10 @@ class Authentication {
 
     updateUserProfile(fullName, photoURL) {
         return updateProfile(this.auth.currentUser, {displayName: fullName, photoURL: photoURL});
+    }
+
+    forgotPassword(email) {
+        return sendPasswordResetEmail(this.auth, email);
     }
 }
 
