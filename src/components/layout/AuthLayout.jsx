@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
+import Loading from "../ui/Loading";
 
 import { AuthService } from "../../services/Authentication";
 import { authActions } from "../../store/authSlice";
@@ -7,6 +9,8 @@ import { authActions } from "../../store/authSlice";
 const AuthLayout = ({ children }) => {
 
     const dispatch = useDispatch();
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const unsubscribe = AuthService.onAuthStateChanged((user) => {
@@ -22,10 +26,14 @@ const AuthLayout = ({ children }) => {
             } else {
                 dispatch(authActions.logout());
             }
+
+            setLoading(false);
         });
 
         return () => unsubscribe();
     }, [])
+
+    if (loading) return <Loading />;
 
     return children
 }
