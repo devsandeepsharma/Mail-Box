@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
@@ -10,11 +9,9 @@ import Button from "../components/ui/Button";
 
 import { AuthService } from "../services/Authentication";
 import { getFirebaseAuthErrorMessage } from "../utils/getFirebaseAuthErrorMessage";
-import { authActions } from "../store/authSlice";
 
 const Login = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [toggle, setToggle] = useState(false);
@@ -46,7 +43,6 @@ const Login = () => {
                 photoUrl: user.user.photoURL
             }
 
-            dispatch(authActions.login(userData));
             navigate("/");
         } catch (error) {
             const msg = getFirebaseAuthErrorMessage(error);

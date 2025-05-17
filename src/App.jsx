@@ -5,6 +5,8 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import Home from "./pages/Home";
+import AuthLayout from "./components/layout/AuthLayout";
 
 const App = () => {
 
@@ -15,7 +17,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <h1>Home Page</h1>
+          element: <Home />
         },
         {
           path: "/profile",
@@ -53,7 +55,11 @@ const App = () => {
     }
   ])
 
-  return <RouterProvider router={router} />
+  return (
+    <AuthLayout>
+      <RouterProvider router={router} />
+    </AuthLayout>
+  )
 }
 
 export default App;
