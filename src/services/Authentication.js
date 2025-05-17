@@ -1,6 +1,7 @@
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
     updateProfile 
 } from "firebase/auth";
 
@@ -13,6 +14,10 @@ class Authentication {
 
     signup(email, password) {
         return createUserWithEmailAndPassword(this.auth, email, password);
+    }
+
+    login(email, password) {
+        return signInWithEmailAndPassword(this.auth, email, password);
     }
 
     updateUserProfile(fullName, photoURL) {

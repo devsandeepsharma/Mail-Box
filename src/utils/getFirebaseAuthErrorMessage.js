@@ -5,6 +5,10 @@ export const getFirebaseAuthErrorMessage = (error) => {
         // Signup errors
         case "auth/email-already-in-use":
             return "This email is already registered.";
+
+        // Login errors
+        case "auth/invalid-credential":
+            return "Invalid login credentials.";
         
         // Generic / shared
         case "auth/too-many-requests":
