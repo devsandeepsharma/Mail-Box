@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref, update } from "firebase/database";
+import { get, getDatabase, ref, update, onValue } from "firebase/database";
 import { v4 as uuid } from "uuid";
 
 import { app } from "./config";
@@ -35,7 +35,29 @@ class Email {
         };
 
         return update(ref(this.db), updates).then(() => composedEmail);
-  }
+    }
+
+    getSentEmails(userUid) {
+        const dbRef = ref(this.db, `emails/sent/${userUid}`);
+        return get(dbRef).then((snapshot) => {
+        const data = snapshot.val();
+        return data ? Object.values(data) : [];
+        });
+    }
+
+    listenToReceivedEmails(userEmail, callback) {
+        const sanitized = sanitizeEmail(userEmail);
+        const dbRef = ref(this.db, `emails/received/${sanitized}`);
+
+        const unsubscribe = onValue(dbRef, (snapshot) => {
+            const data = snapshot.val();
+            const emails = data ? Object.values(data) : [];
+            callback(emails);
+        });
+
+        return unsubscribe;
+    }
+
 }
 
 export const EmailService = new Email();
