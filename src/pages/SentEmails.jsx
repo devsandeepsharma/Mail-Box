@@ -19,6 +19,17 @@ const SentEmails = () => {
         dispatch(emailActions.deleteSentEmail(id));
     }
 
+    if (!sentEmails || sentEmails.length === 0) {
+        return (
+            <main className="emails">
+                <div className="empty-state">
+                    <h2>✉️ No sent emails</h2>
+                    <p>You haven't sent any emails yet. Compose one and get the conversation started!</p>
+                </div>
+            </main>
+        );
+    }
+
     return (
         <main className="emails">
             <ul className="emails__list">

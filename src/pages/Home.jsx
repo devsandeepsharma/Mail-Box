@@ -9,11 +9,22 @@ import { EmailService } from "../services/Email";
 
 const Home = () => {
 
-    const receicedEmails = useSelector(state => state.emails.received);
-    const sortedEmails = sortEmails(receicedEmails);
+    const receivedEmails = useSelector(state => state.emails.received);
+    const sortedEmails = sortEmails(receivedEmails);
 
     const deleteEmail = async (id) => {
         await EmailService.deleteReceivedEmail(id);
+    }
+
+    if (!receivedEmails || receivedEmails.length === 0) {
+        return (
+            <main className="emails">
+                <div className="empty-state">
+                    <h2>📭 No new emails</h2>
+                    <p>You're all caught up! Check back later for new messages.</p>
+                </div>
+            </main>
+        );
     }
 
     return (
