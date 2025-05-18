@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
+import { convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./emaileditor.css";
 
-const EmailEditor = ({ onChange, defaultValue = "" }) => {
-
-    const [editorState, setEditorState] = useState(() =>
-        defaultValue
-        ? EditorState.createWithContent(ContentState.createFromText(defaultValue))
-        : EditorState.createEmpty()
-    );
+const EmailEditor = ({ editorState, setEditorState, onChange }) => {
 
     useEffect(() => {
         const raw = convertToRaw(editorState.getCurrentContent());

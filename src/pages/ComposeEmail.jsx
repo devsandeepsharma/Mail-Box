@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import { EditorState } from "draft-js";
 
 import "./pages.css";
 import "./composeEmail.css";
@@ -14,6 +15,7 @@ const ComposeEmail = () => {
     const [emailBody, setEmailBody] = useState();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
     const EmailSchema = Yup.object({
         receiverEmail: Yup.string()
@@ -44,6 +46,7 @@ const ComposeEmail = () => {
             setSuccess("Mail Sent Successfully!");
             actions.resetForm();
             setEmailBody("");
+            setEditorState(EditorState.createEmpty());
         } catch (error) {
             setError("Failed to send email. Please try again.");
         } finally {
@@ -85,7 +88,11 @@ const ComposeEmail = () => {
                             </div>
                             <div className="form__input-box">
                                 <label className="input-box__label">Email Body</label>
-                                <EmailEditor onChange={setEmailBody} />
+                                <EmailEditor 
+                                    editorState={editorState}
+                                    setEditorState={setEditorState}
+                                    onChange={setEmailBody} 
+                                />
                                 <p className="input-box__error">
                                     {error && error}
                                 </p>
