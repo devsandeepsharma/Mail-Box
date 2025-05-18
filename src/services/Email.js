@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { get, getDatabase, ref, update, onValue } from "firebase/database";
+import { get, getDatabase, ref, update, onValue, remove } from "firebase/database";
 import { v4 as uuid } from "uuid";
 
 import { app } from "./config";
@@ -37,15 +37,25 @@ class Email {
         return update(ref(this.db), updates).then(() => composedEmail);
     }
 
-    getSentEmails(userUid) {
+    getSentEmails() {
+        const userUid = this.auth.currentUser.uid;
         const dbRef = ref(this.db, `emails/sent/${userUid}`);
+
         return get(dbRef).then((snapshot) => {
-        const data = snapshot.val();
-        return data ? Object.values(data) : [];
+            const data = snapshot.val();
+            return data ? Object.values(data) : [];
         });
     }
 
-    listenToReceivedEmails(userEmail, callback) {
+    deleteSentEmail(emailId) {
+        const userUid = this.auth.currentUser.uid;
+        const emailRef = ref(this.db, `emails/sent/${userUid}/${emailId}`);
+
+        return remove(emailRef);
+    }
+
+    listenToReceivedEmails(callback) {
+        const userEmail = this.auth.currentUser.email;
         const sanitized = sanitizeEmail(userEmail);
         const dbRef = ref(this.db, `emails/received/${sanitized}`);
 
@@ -56,6 +66,14 @@ class Email {
         });
 
         return unsubscribe;
+    }
+
+    deleteReceivedEmail(emailId) {
+        const userEmail = this.auth.currentUser.email;
+        const sanitized = sanitizeEmail(userEmail);
+        const emailRef = ref(this.db, `emails/received/${sanitized}/${emailId}`);
+
+        return remove(emailRef);
     }
 
 }

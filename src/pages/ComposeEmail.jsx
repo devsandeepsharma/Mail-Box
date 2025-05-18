@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { EditorState } from "draft-js";
@@ -9,8 +10,11 @@ import EmailEditor from "../components/ui/EmailEditor";
 import Button from "../components/ui/Button";
 
 import { EmailService } from "../services/Email";
+import { emailActions } from "../store/emailSlice";
 
 const ComposeEmail = () => {
+
+    const dispatch = useDispatch();
 
     const [emailBody, setEmailBody] = useState();
     const [success, setSuccess] = useState();
@@ -43,6 +47,8 @@ const ComposeEmail = () => {
                 values.title,
                 emailBody
             );
+
+            dispatch(emailActions.updateSentEmails(emailData));
             setSuccess("Mail Sent Successfully!");
             actions.resetForm();
             setEmailBody("");

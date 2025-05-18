@@ -15,6 +15,9 @@ const emailSlice = createSlice({
     updateSentEmails(state, action) {
       state.sent = [...state.sent, action.payload]
     },
+    deleteSentEmail(state, action) {
+      state.sent = state.sent.filter((email) => email.id !== action.payload);
+    },
     setReceivedEmails(state, action) {
       state.received = action.payload;
     },

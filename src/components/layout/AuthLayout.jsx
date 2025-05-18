@@ -28,7 +28,7 @@ const AuthLayout = ({ children }) => {
                 dispatch(authActions.login(userData));
 
                 try {
-                    const sentEmails = await EmailService.getSentEmails(user.uid);
+                    const sentEmails = await EmailService.getSentEmails();
                     dispatch(emailActions.setSentEmails(sentEmails));
                     console.log("Sent Emails :", sentEmails);
                 } catch (err) {
@@ -39,9 +39,9 @@ const AuthLayout = ({ children }) => {
                     unsubscribeEmailsRef.current();
                 }
 
-                unsubscribeEmailsRef.current = EmailService.listenToReceivedEmails(user.email, (emails) => {
+                unsubscribeEmailsRef.current = EmailService.listenToReceivedEmails((emails) => {
                     dispatch(emailActions.setReceivedEmails(emails));
-                    console.log("📥 Received Emails for", user.email, ":", emails);
+                    console.log("Received Emails for", user.email, ":", emails);
                 });
 
             } else {

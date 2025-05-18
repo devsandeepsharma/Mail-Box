@@ -5,14 +5,15 @@ import "./emailsPage.css";
 import EmailCard from "../components/ui/EmailCard";
 
 import { sortEmails } from "../utils/sortEmails";
+import { EmailService } from "../services/Email";
 
 const Home = () => {
 
     const receicedEmails = useSelector(state => state.emails.received);
     const sortedEmails = sortEmails(receicedEmails);
 
-    const deleteEmail = (id) => {
-        console.log("deleting...", id)
+    const deleteEmail = async (id) => {
+        await EmailService.deleteReceivedEmail(id);
     }
 
     return (
