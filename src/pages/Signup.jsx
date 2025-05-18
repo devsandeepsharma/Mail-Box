@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
@@ -9,12 +10,14 @@ import Button from "../components/ui/Button";
 
 import { AuthService } from "../services/Authentication";
 import { getFirebaseAuthErrorMessage } from "../utils/getFirebaseAuthErrorMessage";
+import { authActions } from "../store/authSlice";
 
 const Signup = () => {
 
     const defaultImg = "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D";
 
     const navigate = useNavigate();
+    const dispatch = useDispatch(); 
 
     const [toggle, setToggle] = useState(false);
     const [error, setError] = useState(false);
@@ -38,14 +41,17 @@ const Signup = () => {
 
     const createUser = async (values, actions) => {
         setError("");
+        dispatch(authActions.setIsSigningUp(true)); 
         try {
             await AuthService.signup(values.email, values.password);
             await AuthService.updateUserProfile(values.username, defaultImg);
+            await AuthService.logout();
             navigate("/login");
         } catch (error) {
             const msg = getFirebaseAuthErrorMessage(error);
             setError(msg);
         } finally {
+            dispatch(authActions.setIsSigningUp(false)); 
             actions.setSubmitting(false);;
         }
     }

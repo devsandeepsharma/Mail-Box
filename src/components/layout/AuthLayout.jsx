@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Loading from "../ui/Loading";
 
@@ -11,11 +11,17 @@ import { emailActions } from "../../store/emailSlice";
 const AuthLayout = ({ children }) => {
 
     const dispatch = useDispatch();
+    const isSigningUp = useSelector(state => state.auth.isSigningUp);
+
     const [loading, setLoading] = useState(true);
 
     const unsubscribeEmailsRef = useRef(null);
 
     useEffect(() => {
+         if (isSigningUp) {
+            return;
+        }
+
         const unsubscribeAuth = AuthService.onAuthStateChanged(async (user) => {
             if(user) {
                 const userData = {
@@ -64,7 +70,7 @@ const AuthLayout = ({ children }) => {
                 unsubscribeEmailsRef.current = null;
             }
         }
-    }, [dispatch]);
+    }, [dispatch, isSigningUp]);
 
     if (loading) return <Loading />;
 

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    isSigningUp: false,
     authenticate: false,
     initialized: false,
     user: null
@@ -22,6 +23,9 @@ const authSlice = createSlice({
         },
         updateUser (state, action) {
             state.user = action.payload
+        },
+        setIsSigningUp(state, action) {
+            state.isSigningUp = action.payload;
         }
     }
 })
