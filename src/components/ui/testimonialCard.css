@@ -1,0 +1,20 @@
+.testimonialCard {
+    padding: 1.5rem;
+    background-color: var(--feature-bg);
+
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-glass);
+}
+
+.testimonialCard__text {
+    margin-bottom: 1rem;
+}
+
+.testimonialCard__author {
+    font-size: 14px;
+    color: var(--text-muted);
+}

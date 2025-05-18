@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./header.css";
 import Button from "../ui/Button";
 
 const Header = () => {
+
+    const location = useLocation();
 
     const { authenticate } = useSelector(state => state.auth);
 
@@ -17,7 +19,11 @@ const Header = () => {
 
     return (
         <header className="header">
-            <a className="skip-to-main-content" href="#main">Skip to main content</a>
+            {
+                location.pathname === "/landing" && (
+                    <a className="skip-to-main-content" href="#main">Skip to main content</a>
+                )
+            }
             <Link className="header__logo" to={authenticate ? "/": "/landing"} >Mail Box</Link>
             <nav className="header__nav" aria-label="primary navigation">
                 <Button 
@@ -47,12 +53,28 @@ const Header = () => {
                             </>
                         ) : (
                             <>
-                                <li className="nav__item link-btn auth">
-                                    <Button to="/login" variant="outline" isLink onClick={toggle}>Login</Button>
-                                </li>
-                                <li className="nav__item link-btn auth">
-                                    <Button to="/signup" isLink onClick={toggle}>Sign Up</Button>
-                                </li>
+                                {
+                                    location.pathname === "/landing" && (
+                                        <>
+                                            <li className="nav__item">
+                                                <a href="#features" onClick={toggle}>Features</a>
+                                            </li>
+                                            <li className="nav__item">
+                                                <a href="#editor" onClick={toggle}>Editor</a>
+                                            </li>
+                                            <li className="nav__item">
+                                                <a href="#testimonials" onClick={toggle}>Testimonials</a>
+                                            </li>
+                                        </>
+                                    )
+                                }
+                            
+                            <li className={`nav__item link-btn ${location.pathname !== "/landing" && "auth"}`}>
+                                <Button to="/login" variant="outline" isLink onClick={toggle}>Login</Button>
+                            </li>
+                            <li className={`nav__item link-btn ${location.pathname !== "/landing" && "auth"}`}>
+                                <Button to="/signup" isLink onClick={toggle}>Sign Up</Button>
+                            </li>
                             </>
                         )
                     }
