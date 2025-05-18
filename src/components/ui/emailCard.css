@@ -1,0 +1,80 @@
+.email-card {
+    display: block;
+    padding: 1rem 1.25rem;
+
+    color: var(--text-primary);
+    background-color: var(--glass-bg);
+
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-glass);
+
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.email-card:hover {
+    background-color: var(--glass-hover);
+    transform: translateY(-2px);
+}
+
+.email-card__header,
+.email-card__body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.email-card__header {
+    margin-bottom: 0.5rem;
+}
+
+.email-card__sender {
+    font-weight: var(--fw-500);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.email-card__timestamp {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.email-card__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.email-card__unread-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--clr-primary);
+    border-radius: 50%;
+    margin-top: .15rem;
+}
+
+.email-card__title {
+    font-size: 16px;
+    color: var(--text-primary);
+    text-transform: capitalize;
+}
+
+.normal {
+    margin-left: 18px;
+    font-weight: var(--fw-500);
+}
+
+.email-card__delete-btn {
+    padding: .2rem 1rem !important;
+}
+
+.email-card__delete-btn:hover {
+    background-color: var(--clr-error) !important;
+}

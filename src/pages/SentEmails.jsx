@@ -6,10 +6,10 @@ import EmailCard from "../components/ui/EmailCard";
 
 import { sortEmails } from "../utils/sortEmails";
 
-const Home = () => {
+const SentEmails = () => {
 
-    const receicedEmails = useSelector(state => state.emails.received);
-    const sortedEmails = sortEmails(receicedEmails);
+    const sentEmails = useSelector(state => state.emails.sent);
+    const sortedEmails = sortEmails(sentEmails);
 
     const deleteEmail = (id) => {
         console.log("deleting...", id)
@@ -22,6 +22,7 @@ const Home = () => {
                     sortedEmails.map(email => (
                         <li className="emails__item" key={email.id} >
                             <EmailCard 
+                                type="sent" 
                                 email={email} 
                                 onDelete={deleteEmail}
                             />
@@ -33,4 +34,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default SentEmails;

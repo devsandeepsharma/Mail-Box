@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ComposeEmail from "./pages/ComposeEmail";
+import SentEmails from "./pages/SentEmails";
 import AuthLayout from "./components/layout/AuthLayout";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import PublicRoute from "./components/layout/PublicRoute";
@@ -47,7 +48,7 @@ const App = () => {
           path: "/sent",
           element: (
             <ProtectedRoute>
-              <h1>Sent Emails Page</h1>
+              <SentEmails />
             </ProtectedRoute>
           )
         },
