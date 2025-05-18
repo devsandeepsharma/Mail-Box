@@ -81,8 +81,6 @@ This command forced the installation to ignore some dependency conflicts, and th
 
 ### How to Integrate Draft.js and Related Libraries in Your Project
 
----
-
 #### 1. Install Draft.js, react-draft-wysiwyg, and draftjs-to-html:
 
 ```bash
@@ -133,8 +131,6 @@ Here’s what I needed to do right after a new user signs up:
 
 But since Firebase auto-logs in the user right after signup, the `onAuthStateChanged` listener would trigger immediately — and the user would be sent to the home page **before** these updates were completed.
 
----
-
 ### 🛠 What I Tried
 
 My first idea was:  
@@ -145,8 +141,6 @@ So I called `signOut()` immediately after signup.
 That *almost* worked — but there was one issue:  
 For a brief moment, the user was still being redirected to the home page, and **then** they were logged out and sent back to the login screen.  
 It felt janky and confusing from a user experience perspective.
-
----
 
 ### ✅ Final Solution: Using a Flag in Redux
 
