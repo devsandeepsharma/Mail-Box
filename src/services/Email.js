@@ -76,6 +76,14 @@ class Email {
         return remove(emailRef);
     }
 
+    markAsRead(emailId) {
+        const userEmail = this.auth.currentUser.email;
+        const sanitized = sanitizeEmail(userEmail);
+        const emailRef = ref(this.db, `emails/received/${sanitized}/${emailId}`);
+
+        return update(emailRef, { read: true });
+    }
+
 }
 
 export const EmailService = new Email();

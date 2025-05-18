@@ -4,6 +4,7 @@ import "./emailCard.css";
 import Button from "../ui/Button";
 
 import { formatTimestamp } from "../../utils/formatDate";
+import { EmailService } from "../../services/Email";
 
 const EmailCard = ({ email, type="received", onDelete }) => {
     
@@ -15,8 +16,20 @@ const EmailCard = ({ email, type="received", onDelete }) => {
         onDelete(email?.id);
     };
 
+    const markAsRead = async () => {
+        if(type === "sent") return;
+
+        if (email.read) return;
+
+        try {
+            await EmailService.markAsRead(email.id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <Link  className="email-card" to={`/${email?.id}`}>
+        <Link  className="email-card" to={`/${email?.id}`} onClick={markAsRead}>
             <div className="email-card__header">
                 <span className="email-card__receiver">
                     {type === "sent" ? `To: ${email?.to}` : `From: ${email?.from}`}
