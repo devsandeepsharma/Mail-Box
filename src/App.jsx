@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ComposeEmail from "./pages/ComposeEmail";
 import SentEmails from "./pages/SentEmails";
+import ReadEmail from "./pages/ReadEmail";
 import AuthLayout from "./components/layout/AuthLayout";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import PublicRoute from "./components/layout/PublicRoute";
@@ -56,7 +57,7 @@ const App = () => {
           path: "/:id",
           element: (
             <ProtectedRoute>
-              <h1>View Emails Page</h1>
+              <ReadEmail />
             </ProtectedRoute>
           )
         },
